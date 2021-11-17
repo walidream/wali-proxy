@@ -1,0 +1,59 @@
+@import "../scss/global.scss";
+@import "../scss/media.scss";
+@import "../scss/media.scss";
+
+.box-wrap{
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 1400px;
+  background-color: $--color-white;
+  box-sizing: content-box; 
+  @include medium {
+    width: 800px;
+    box-sizing: border-box; 
+  }
+  @include small {
+    width: 800px;
+    box-sizing: border-box; 
+  }
+
+  h1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 34px;
+    font-weight: 400;
+  }
+}
+.yapi-proxy{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+.rules-wrap{
+  width: 560px;
+}
+.rules-list-wrap{
+  width: 800px;
+  @include medium {
+    width: 100%;
+  }
+  @include small {
+    width: 100%;
+  }
+}
+
+.field-note{
+  margin-top: 5px;
+  font-size: 12px;
+  color: #888;
+  line-height: 1.8;
+  code {
+    display: inline-block;
+    line-height: 1.1;
+    background: #eee;
+    border-radius: 3px;
+    padding: 3px 5px 2px;
+  }
+}

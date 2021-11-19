@@ -42,7 +42,7 @@ const storage = createModel<RootModel>()({
       }
     },
     addRulesItem(state, payload: RuleType){
-      let rules = state.rulesList 
+      let rules = state.rulesList || []
       rules = addRulesArray(rules, payload)
       
       chromeStorage.set({YAPI_PROXY_RULES: rules}, (data:any)=>{

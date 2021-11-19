@@ -14,11 +14,12 @@
   },
   "options_page": "index.html",
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["static/js/background.js"],
     "persistent": true
   },
   "permissions": [
     "storage",
+    "webRequestBlocking",
     "webRequest",
     "background",
     "<all_urls>"

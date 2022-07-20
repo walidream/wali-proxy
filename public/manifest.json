@@ -1,9 +1,9 @@
 {
   "name": "wali proxy",
-  "version":"1.0",
+  "version":"1.2",
   "description": "wali proxy",
-  "manifest_version": 2,
-  "browser_action": {
+  "manifest_version": 3,
+  "action": {
     "default_icon": {
         "16": "images/16.png",
         "48": "images/48.png",
@@ -14,14 +14,16 @@
   },
   "options_page": "index.html",
   "background": {
-    "scripts": ["static/js/background.js"],
-    "persistent": true
+    "service_worker": "static/js/background.js",
+    "type": "module"
   },
+  "host_permissions":[
+    "*://*/*"
+  ],
   "permissions": [
+    "cookies",
     "storage",
-    "webRequestBlocking",
     "webRequest",
-    "background",
-    "<all_urls>"
+    "background"
   ]
 }

@@ -1,7 +1,7 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "../store";
 
-import { YAPI_PROXY_RULES, YAPI_PROXY_ENABLE } from "@/constants"
+import { YAPI_PROXY_RULES, YAPI_PROXY_ENABLE, YAPI_PROXY_LOGIN} from "@/constants"
 import { chromeStorage } from "@/utils/storage" 
 import { addRulesArray, uuid, selectRulesArray } from "@/utils"
 import { RuleType } from "@/modules/Rule/types"
@@ -13,12 +13,14 @@ interface RuleListType extends RuleType {
 
 interface StorageModel {
   enable: boolean;
+  login: boolean;
   formRule:RuleType;
   rulesList: RuleListType[];
 }
 
 const initialState: StorageModel = {
   enable: false,
+  login: false,
   formRule: {
     key: uuid(),
     host:'',
@@ -97,11 +99,9 @@ const storage = createModel<RootModel>()({
       }
     },
     switchEnable(state, paypload:boolean){
-
       chromeStorage.set({YAPI_PROXY_ENABLE: paypload}, (data:any)=>{
         console.log('设置开关',paypload)
       })
-
       return{
         ...state,
         enable:paypload
@@ -119,17 +119,31 @@ const storage = createModel<RootModel>()({
         ...state,
         rulesList:rules
       }
+    },
+    loginEnable(state, paypload:boolean){
+      chromeStorage.set({YAPI_PROXY_LOGIN: paypload}, (data:any)=>{
+        console.log('设置登陆',paypload)
+      })
+      return{
+        ...state,
+        login:paypload
+      }
     }
   },
   effects: dispatch => ({
     async getYapiRules(payload, rootState) {
 
-      chromeStorage.get([YAPI_PROXY_RULES,YAPI_PROXY_ENABLE], (data:any) => {
-        // console.log('获取数据', data)
-        const {YAPI_PROXY_RULES:rulesList,  YAPI_PROXY_ENABLE: enable} = data
+      chromeStorage.get([YAPI_PROXY_RULES,YAPI_PROXY_ENABLE, YAPI_PROXY_LOGIN], (data:any) => {
+        console.log('获取数据', data)
+        const {
+          YAPI_PROXY_RULES:rulesList,  
+          YAPI_PROXY_ENABLE: enable,
+          YAPI_PROXY_LOGIN: login
+        } = data
         dispatch.storage.initStorage({
           enable,
-          rulesList
+          rulesList,
+          login
         })
       })
     }

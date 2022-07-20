@@ -10,3 +10,9 @@ export const TAGS_COLOR = [
 
 export const YAPI_PROXY_RULES = "YAPI_PROXY_RULES";
 export const YAPI_PROXY_ENABLE = 'YAPI_PROXY_ENABLE';
+export const YAPI_PROXY_LOGIN = 'YAPI_PROXY_LOGIN';
+
+export const QA_HOST = '.qafdg.us';
+export const LOCAL_URL = 'http://localhost';
+export const LOCAL_DOMAIN = 'localhost';
+export const SET_COOKIES = ['p20t', 'cr00'];

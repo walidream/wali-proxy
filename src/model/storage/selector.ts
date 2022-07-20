@@ -5,6 +5,7 @@ export const getRulesList = (state: RootState) => state.storage.rulesList || [];
 export const getFormRule = (state: RootState) => state.storage.formRule;
 
 export const getChecked = (state: RootState) => state.storage.enable;
+export const getLogin = (state: RootState) => state.storage.login;
 
 export const getSelectRules = createSelector(
   [getRulesList],

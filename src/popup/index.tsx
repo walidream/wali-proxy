@@ -8,7 +8,7 @@ import { Button } from "antd"
 import RulesView from '@/modules/Rule'
 import RulesList from '@/modules/Rule/RulesList'
 import SwitchView from '@/modules/Rule/components/Switch';
-
+import LoginView from '@/modules/Rule/components/Login'
 
 import usePageSize from "@/hooks/usePageSize"
 
@@ -50,7 +50,10 @@ const Popup:React.FC = () => {
             <span style={{marginRight:16}}>Wali Proxy </span>
             {(small || medium) && <Button size='small' onClick={_onClick}>设置</Button>}
           </div>
-          <SwitchView></SwitchView>
+          <div>
+            <LoginView />
+            <SwitchView />
+          </div>
         </h1>
         <div className="yapi-proxy">
           {_renderBody()}

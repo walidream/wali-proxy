@@ -28,6 +28,7 @@ const initialState: StorageModel = {
     tag:'',
     sort:0,
     remark:'',
+    link:'',
     checked:false
   },
   rulesList: []

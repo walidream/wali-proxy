@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react';
 import { useSelector,useDispatch } from "react-redux";
 import Highlighter from 'react-highlight-words';
 
-import { Table, Input} from 'antd';
+import { Table, Input, Button} from 'antd';
 
 import Tags from "./components/Tags"
 import TagFilter from "./components/TagFilter"
@@ -68,6 +68,8 @@ const RulesList = () => {
       {
         title: '源(域名/URL)',
         dataIndex: 'host',
+        width: 300,
+        ellipsis: false,
         render:(host:string) => {
           return(
             <Highlighter
@@ -82,6 +84,8 @@ const RulesList = () => {
       {
         title: '目标(域名/URL)',
         dataIndex: 'target',
+        width: 300,
+        ellipsis: false,
         render:(target:string) => {
           return(
             <Highlighter
@@ -94,8 +98,19 @@ const RulesList = () => {
         }
       },
       {
+        title: '链接',
+        dataIndex: 'link',
+        width: 100,
+        render: (link:string, record:any) => {
+          return (
+           <Button type="link" target="_blank" href={link}>Yapi</Button>
+          )
+        }
+      },
+      {
         title: '标签',
         dataIndex: 'tag',
+        width: 100,
         render: (tag:string, record:any) => {
           return (
             <Tags tagMap={record?.tagMap}></Tags>
@@ -113,6 +128,7 @@ const RulesList = () => {
       {
         title: '备注',
         dataIndex: 'remark',
+        width: 150
       },
       {
         title: 'Action',

@@ -7,4 +7,5 @@ export interface RuleType {
   sort:number;
   remark:string;
   checked: boolean;
+  link?: string;
 }

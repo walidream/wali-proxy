@@ -83,6 +83,12 @@ const AddRules:React.FC = () => {
           <Input placeholder="https://yapi.devfdg.us/mock/binance-mgs-lending/v1/friendly/new-otc/get-selector" />
         </Form.Item>
         <Form.Item
+          label="(链接)"
+          name="link"
+        >
+          <Input placeholder="yapi页面地址，方便查找" />
+        </Form.Item>
+        <Form.Item
           label="标签"
           name="tag"
         >

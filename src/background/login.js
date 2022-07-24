@@ -8,7 +8,7 @@ export const setLocalhostCookie = cookie => {
     name: cookie.name,
     value: cookie.value
   },((details) => {
-    console.log(`设置成功: ${details.name}`)
+    console.log(`cookie设置成功: ${details.name}`)
   }))
 }
 

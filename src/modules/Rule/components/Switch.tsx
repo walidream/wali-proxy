@@ -22,8 +22,8 @@ const SwitchView = () => {
   return (
     <Switch 
     checked={checked}
-    checkedChildren="关闭"
-    unCheckedChildren="启用" 
+    checkedChildren="Close API"
+    unCheckedChildren="Mock API" 
     onChange={_onSwitch}/>
   )
 }

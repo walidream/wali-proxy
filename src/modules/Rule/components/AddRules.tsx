@@ -19,6 +19,8 @@ const AddRules:React.FC = () => {
   }, [formRule,formRef])
 
   const _onFinish = (values: RuleType) => {
+    values.host = values.host.trim()
+    values.target = values.target.trim()
     dispatch.storage.addRulesItem(values)
 
     _onReset()
@@ -68,7 +70,7 @@ const AddRules:React.FC = () => {
           <Input/>
         </Form.Item>
         <Form.Item
-          label="(源)"
+          label="(Source URL)"
           name="host"
           required={true}
           rules={[{ required: true, message: '域名/URL 必须填写' }]}
@@ -76,40 +78,40 @@ const AddRules:React.FC = () => {
           <Input placeholder="https://us.qa1fdg.net/v1/friendly/new-otc/get-selector" />
         </Form.Item>
         <Form.Item
-          label="(目标)"
+          label="(Target URL)"
           name="target"
           rules={[{ required: true, message: '域名/URL 必须填写' }]}
         >
           <Input placeholder="https://yapi.devfdg.us/mock/binance-mgs-lending/v1/friendly/new-otc/get-selector" />
         </Form.Item>
         <Form.Item
-          label="(链接)"
+          label="(Mock Config)"
           name="link"
         >
-          <Input placeholder="yapi页面地址，方便查找" />
+          <Input placeholder="yapi page address" />
         </Form.Item>
         <Form.Item
-          label="标签"
+          label="Tag"
           name="tag"
         >
-          <Input placeholder="多个标签可用逗号隔开" />
+          <Input placeholder="Multiple tags can be separated by commas" />
         </Form.Item>
         <Form.Item
-          label="排序"
+          label="Sort"
           name="sort"
         >
-          <Input value={0}  placeholder="值越大排序越靠前" />
+          <Input value={0}  placeholder="The higher the value, the higher the ranking" />
         </Form.Item>
         <Form.Item
-          label="备注"
+          label="Remark"
           name="remark"
         >
           <Input />
         </Form.Item>
         <Form.Item  wrapperCol={{ offset: 4, span: 20 }}>
           <Space size={20}>
-            <Button onClick={_onReset}>取消</Button>
-            <Button type="primary" htmlType="submit">确定添加</Button>
+            <Button onClick={_onReset}>Cancel</Button>
+            <Button type="primary" htmlType="submit">Ok</Button>
           </Space>
         </Form.Item>
       </Form>

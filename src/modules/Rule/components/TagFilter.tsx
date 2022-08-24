@@ -53,7 +53,7 @@ const TagFilter = (
             className="tag" 
             style={_style(key)}
             onClick={() => _onTagClick(key)}>
-            {key === ALL ?'全部':key}({key === ALL? tagsData.length: tagsCount.get(key)})
+            {key === ALL ?'All':key}({key === ALL? tagsData.length: tagsCount.get(key)})
           </span>
         ))
       }

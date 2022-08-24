@@ -18,8 +18,8 @@ const LoginView = () => {
     <Switch 
     style={{marginRight:20}}
     checked={checked}
-    checkedChildren="登出"
-    unCheckedChildren="登陆" 
+    checkedChildren="Auto Logout"
+    unCheckedChildren="Auto Login" 
     onChange={_onSwitch}/>
   )
 }

@@ -1,6 +1,6 @@
 {
   "name": "wali proxy",
-  "version":"1.4",
+  "version":"1.5",
   "description": "wali proxy",
   "manifest_version": 3,
   "action": {

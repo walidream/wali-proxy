@@ -66,7 +66,7 @@ const RulesList = () => {
   const columns = useMemo(() => {
     return [
       {
-        title: '源(域名/URL)',
+        title: 'Source(URL)',
         dataIndex: 'host',
         width: 300,
         ellipsis: false,
@@ -82,7 +82,7 @@ const RulesList = () => {
         }
       },
       {
-        title: '目标(域名/URL)',
+        title: 'Target(URL)',
         dataIndex: 'target',
         width: 300,
         ellipsis: false,
@@ -98,7 +98,7 @@ const RulesList = () => {
         }
       },
       {
-        title: '链接',
+        title: 'Mock Config',
         dataIndex: 'link',
         width: 100,
         render: (link:string, record:any) => {
@@ -108,7 +108,7 @@ const RulesList = () => {
         }
       },
       {
-        title: '标签',
+        title: 'Tag',
         dataIndex: 'tag',
         width: 100,
         render: (tag:string, record:any) => {
@@ -118,7 +118,7 @@ const RulesList = () => {
         }
       },
       {
-        title: '排序',
+        title: 'Sort',
         dataIndex: 'sort',
         width: 100,
         sorter: {
@@ -126,7 +126,7 @@ const RulesList = () => {
         },
       },
       {
-        title: '备注',
+        title: 'Remark',
         dataIndex: 'remark',
         width: 150
       },
@@ -137,8 +137,8 @@ const RulesList = () => {
         render: (record:any) => {
           return(
             <div className='operation-wrap'>
-              <span onClick={() => onEditor(record?.key)}>编辑</span>
-              <span onClick={() => onDelete(record?.key)}>删除</span>
+              <span onClick={() => onEditor(record?.key)}>Edit</span>
+              <span onClick={() => onDelete(record?.key)}>Delete</span>
             </div>
           )
         },

@@ -18,13 +18,13 @@ const RulesView:React.FC = () => {
 
   return(
     <div className="add-rules">
-      <h3>添加规则</h3>
+      <h3>Add Rules</h3>
       <div className="ar-content">
       <Tabs defaultActiveKey="1" onChange={_onChange}>
-        <TabPane tab="添加" key="1">
+        <TabPane tab="Add" key="1">
           <AddRules />
         </TabPane>
-        <TabPane tab="批量添加" key="2">
+        <TabPane tab="Batch Add" key="2">
           <BatchAddRules/>
         </TabPane>
       </Tabs>

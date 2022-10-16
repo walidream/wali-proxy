@@ -47,7 +47,7 @@ const Popup:React.FC = () => {
       <StoreProvider store={_store}>
         <h1>
           <div>
-            <span style={{marginRight:16}}>Wali Proxy </span>
+            <span style={{marginRight:16}}>US Proxy </span>
             {(small || medium) && <Button size='small' onClick={_onClick}>Setting</Button>}
           </div>
           <div>

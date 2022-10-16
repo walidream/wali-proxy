@@ -4,11 +4,8 @@ import "./styles.scss";
 import {Tabs} from 'antd';
 
 import AddRules from "./components/AddRules";
-import BatchAddRules from "./components/BatchAddRules"
-
 
 const { TabPane } = Tabs;
-
 
 const RulesView:React.FC = () => {
 
@@ -23,9 +20,6 @@ const RulesView:React.FC = () => {
       <Tabs defaultActiveKey="1" onChange={_onChange}>
         <TabPane tab="Add" key="1">
           <AddRules />
-        </TabPane>
-        <TabPane tab="Batch Add" key="2">
-          <BatchAddRules/>
         </TabPane>
       </Tabs>
       </div>

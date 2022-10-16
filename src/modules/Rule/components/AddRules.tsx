@@ -26,7 +26,7 @@ const AddRules:React.FC = () => {
     _onReset()
     notification.success({
       duration:2,
-      message: 'wali proxy',
+      message: 'US Proxy',
       description:'保存成功!',
     });
   }

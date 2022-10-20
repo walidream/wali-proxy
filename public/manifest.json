@@ -1,6 +1,6 @@
 {
   "name": "us proxy",
-  "version":"1.7",
+  "version":"1.8",
   "description": "us proxy",
   "manifest_version": 3,
   "action": {

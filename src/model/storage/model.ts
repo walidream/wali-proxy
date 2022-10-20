@@ -1,20 +1,21 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "../store";
 
-import { YAPI_PROXY_RULES, YAPI_PROXY_ENABLE, YAPI_PROXY_LOGIN} from "@/constants"
-import { chromeStorage } from "@/utils/storage" 
-import { addRulesArray, uuid, selectRulesArray } from "@/utils"
-import { RuleType } from "@/modules/Rule/types"
+import {
+  YAPI_PROXY_RULES,
+  YAPI_PROXY_ENABLE,
+  YAPI_PROXY_LOGIN,
+} from "@/constants";
+import { chromeStorage } from "@/utils/storage";
+import { addRulesArray, uuid, selectRulesArray } from "@/utils";
+import { RuleType } from "@/modules/Rule/types";
 
-
-interface RuleListType extends RuleType {
-
-}
+interface RuleListType extends RuleType {}
 
 interface StorageModel {
   enable: boolean;
   login: boolean;
-  formRule:RuleType;
+  formRule: RuleType;
   rulesList: RuleListType[];
 }
 
@@ -23,132 +24,136 @@ const initialState: StorageModel = {
   login: false,
   formRule: {
     key: uuid(),
-    host:'',
-    target:'',
-    tag:'',
-    sort:0,
-    remark:'',
-    link:'',
-    checked:false
+    host: "",
+    target: "",
+    tag: "",
+    sort: 0,
+    remark: "",
+    link: "",
+    checked: false,
   },
-  rulesList: []
+  rulesList: [],
 };
 
 const storage = createModel<RootModel>()({
   name: "storage",
   state: initialState,
   reducers: {
-    initStorage(state, payload: Object){
-      return{
+    initStorage(state, payload: Object) {
+      return {
         ...state,
-        ...payload
-      }
+        ...payload,
+      };
     },
-    addRulesItem(state, payload: RuleType){
-      let rules = state.rulesList || []
-      rules = addRulesArray(rules, payload)
-      
-      chromeStorage.set({YAPI_PROXY_RULES: rules}, (data:any)=>{
-        console.log('设置rule',rules)
-      })
+    addRulesItem(state, payload: RuleType) {
+      let rules = state.rulesList || [];
+      rules = addRulesArray(rules, payload);
+
+      chromeStorage.set({ YAPI_PROXY_RULES: rules }, (data: any) => {
+        console.log("设置rule", rules);
+      });
 
       return {
         ...state,
-        rulesList: rules
-      }
+        rulesList: rules,
+      };
     },
-    removeRulesItem(state, payload:string){
-      let rules = state.rulesList
-      let _rules = rules.filter((item:RuleType)  => item.key !== payload)
+    removeRulesItem(state, payload: string) {
+      let rules = state.rulesList;
+      let _rules = rules.filter((item: RuleType) => item.key !== payload);
 
-      chromeStorage.set({YAPI_PROXY_RULES: _rules}, (data:any)=>{
-        console.log('选中rules',_rules)
-      })
+      chromeStorage.set({ YAPI_PROXY_RULES: _rules }, (data: any) => {
+        console.log("选中rules", _rules);
+      });
 
       return {
         ...state,
-        rulesList: _rules
-      }
+        rulesList: _rules,
+      };
     },
-    editorFormRule(state, payload: string){
-      const rules = state.rulesList 
-      console.log(rules)
-      const rule = rules?.filter((item:RuleType)  => item.key === payload).pop()      
+    editorFormRule(state, payload: string) {
+      const rules = state.rulesList;
+      console.log(rules);
+      const rule = rules
+        ?.filter((item: RuleType) => item.key === payload)
+        .pop();
 
-      if(rule){
-        return{
+      if (rule) {
+        return {
           ...state,
-          formRule:rule
-        }
+          formRule: rule,
+        };
       }
       return {
-        ...state
-      }
+        ...state,
+      };
     },
-    resetFormRule(state){
-      return{
+    resetFormRule(state) {
+      return {
         ...state,
         formRule: {
           key: uuid(),
-          host:'',
-          target:'',
-          tag:'',
-          sort:0,
-          remark:'',
-          checked:false
-        }
-      }
+          host: "",
+          target: "",
+          tag: "",
+          sort: 0,
+          remark: "",
+          checked: false,
+        },
+      };
     },
-    switchEnable(state, paypload:boolean){
-      chromeStorage.set({YAPI_PROXY_ENABLE: paypload}, (data:any)=>{
-        console.log('设置开关',paypload)
-      })
-      return{
+    switchEnable(state, paypload: boolean) {
+      chromeStorage.set({ YAPI_PROXY_ENABLE: paypload }, (data: any) => {
+        console.log("设置开关", paypload);
+      });
+      return {
         ...state,
-        enable:paypload
-      }
+        enable: paypload,
+      };
     },
-    selectRules(state, paypload:string[]){
-      const ruleList = state.rulesList 
-      const rules = selectRulesArray(ruleList, paypload)
+    selectRules(state, paypload: string[]) {
+      const ruleList = state.rulesList;
+      const rules = selectRulesArray(ruleList, paypload);
 
-      chromeStorage.set({YAPI_PROXY_RULES: rules}, (data:any)=>{
-        console.log('选中rules',rules)
-      })
+      chromeStorage.set({ YAPI_PROXY_RULES: rules }, (data: any) => {
+        console.log("选中rules", rules);
+      });
 
-      return{
+      return {
         ...state,
-        rulesList:rules
-      }
+        rulesList: rules,
+      };
     },
-    loginEnable(state, paypload:boolean){
-      chromeStorage.set({YAPI_PROXY_LOGIN: paypload}, (data:any)=>{
-        console.log('设置登陆',paypload)
-      })
-      return{
+    loginEnable(state, paypload: boolean) {
+      chromeStorage.set({ YAPI_PROXY_LOGIN: paypload }, (data: any) => {
+        console.log("set login date succ", paypload);
+      });
+      return {
         ...state,
-        login:paypload
-      }
-    }
+        login: paypload,
+      };
+    },
   },
-  effects: dispatch => ({
+  effects: (dispatch) => ({
     async getYapiRules(payload, rootState) {
-
-      chromeStorage.get([YAPI_PROXY_RULES,YAPI_PROXY_ENABLE, YAPI_PROXY_LOGIN], (data:any) => {
-        console.log('获取数据', data)
-        const {
-          YAPI_PROXY_RULES:rulesList,  
-          YAPI_PROXY_ENABLE: enable,
-          YAPI_PROXY_LOGIN: login
-        } = data
-        dispatch.storage.initStorage({
-          enable,
-          rulesList,
-          login
-        })
-      })
-    }
-  })
+      chromeStorage.get(
+        [YAPI_PROXY_RULES, YAPI_PROXY_ENABLE, YAPI_PROXY_LOGIN],
+        (data: any) => {
+          console.log("获取数据", data);
+          const {
+            YAPI_PROXY_RULES: rulesList,
+            YAPI_PROXY_ENABLE: enable,
+            YAPI_PROXY_LOGIN: login,
+          } = data;
+          dispatch.storage.initStorage({
+            enable,
+            rulesList,
+            login,
+          });
+        }
+      );
+    },
+  }),
 });
 
 export default storage;

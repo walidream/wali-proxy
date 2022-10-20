@@ -5,7 +5,7 @@ import { Switch } from "antd"
 
 import { getChecked } from "@/model/storage/selector"
 
-const SwitchView = () => {
+const MockApiView = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -28,4 +28,4 @@ const SwitchView = () => {
   )
 }
 
-export default SwitchView
+export default MockApiView

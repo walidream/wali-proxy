@@ -1,27 +1,49 @@
-import React from "react"
-import { useSelector,useDispatch } from "react-redux";
+import React, { Fragment } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { Switch } from "antd"
+import { Switch } from "antd";
 
-import { getLogin } from "@/model/storage/selector"
+import { getDevLogin, getQaLogin } from "@/model/storage/selector";
 
 const LoginView = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const checked = useSelector(getLogin)
+  const devChecked = useSelector(getDevLogin);
+  const qaChecked = useSelector(getQaLogin);
 
-  const _onSwitch = (checked:boolean) => {
-    dispatch.storage.loginEnable(checked)
-  }
+  console.log("=====devChecked---qaChecked", devChecked, qaChecked);
+  const _onDevSwitch = (checked: boolean) => {
+    if (qaChecked === false) {
+      console.log("dev");
+      dispatch.storage.devLoginEnable(checked);
+    }
+  };
+
+  const _onQaSwitch = (checked: boolean) => {
+    if (devChecked === false) {
+      console.log("qa");
+      dispatch.storage.qaLoginEnable(checked);
+    }
+  };
 
   return (
-    <Switch 
-    style={{marginRight:20}}
-    checked={checked}
-    checkedChildren="Auto Logout"
-    unCheckedChildren="Auto Login" 
-    onChange={_onSwitch}/>
-  )
-}
+    <Fragment>
+      <Switch
+        style={{ marginRight: 20 }}
+        checked={devChecked}
+        checkedChildren="Dev Logout"
+        unCheckedChildren="Dev Login"
+        onChange={_onDevSwitch}
+      />
+      <Switch
+        style={{ marginRight: 20 }}
+        checked={qaChecked}
+        checkedChildren="Qa Logout"
+        unCheckedChildren="Qa Login"
+        onChange={_onQaSwitch}
+      />
+    </Fragment>
+  );
+};
 
-export default LoginView
+export default LoginView;

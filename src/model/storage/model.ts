@@ -4,7 +4,8 @@ import { RootModel } from "../store";
 import {
   YAPI_PROXY_RULES,
   YAPI_PROXY_ENABLE,
-  YAPI_PROXY_LOGIN,
+  YAPI_PROXY_DEV_LOGIN,
+  YAPI_PROXY_QA_LOGIN,
 } from "@/constants";
 import { chromeStorage } from "@/utils/storage";
 import { addRulesArray, uuid, selectRulesArray } from "@/utils";
@@ -14,14 +15,16 @@ interface RuleListType extends RuleType {}
 
 interface StorageModel {
   enable: boolean;
-  login: boolean;
+  devLogin: boolean;
+  qaLogin: boolean;
   formRule: RuleType;
   rulesList: RuleListType[];
 }
 
 const initialState: StorageModel = {
   enable: false,
-  login: false,
+  devLogin: false,
+  qaLogin: false,
   formRule: {
     key: uuid(),
     host: "",
@@ -124,31 +127,47 @@ const storage = createModel<RootModel>()({
         rulesList: rules,
       };
     },
-    loginEnable(state, paypload: boolean) {
-      chromeStorage.set({ YAPI_PROXY_LOGIN: paypload }, (data: any) => {
-        console.log("set login date succ", paypload);
+    devLoginEnable(state, paypload: boolean) {
+      chromeStorage.set({ YAPI_PROXY_DEV_LOGIN: paypload }, (data: any) => {
+        console.log("set dev login date succ", paypload);
       });
       return {
         ...state,
-        login: paypload,
+        devLogin: paypload,
+      };
+    },
+    qaLoginEnable(state, paypload: boolean) {
+      chromeStorage.set({ YAPI_PROXY_QA_LOGIN: paypload }, (data: any) => {
+        console.log("set qa login date succ", paypload);
+      });
+      return {
+        ...state,
+        qaLogin: paypload,
       };
     },
   },
   effects: (dispatch) => ({
     async getYapiRules(payload, rootState) {
       chromeStorage.get(
-        [YAPI_PROXY_RULES, YAPI_PROXY_ENABLE, YAPI_PROXY_LOGIN],
+        [
+          YAPI_PROXY_RULES,
+          YAPI_PROXY_ENABLE,
+          YAPI_PROXY_DEV_LOGIN,
+          YAPI_PROXY_QA_LOGIN,
+        ],
         (data: any) => {
           console.log("获取数据", data);
           const {
             YAPI_PROXY_RULES: rulesList,
             YAPI_PROXY_ENABLE: enable,
-            YAPI_PROXY_LOGIN: login,
+            YAPI_PROXY_DEV_LOGIN: devLogin,
+            YAPI_PROXY_QA_LOGIN: qaLogin,
           } = data;
           dispatch.storage.initStorage({
-            enable,
-            rulesList,
-            login,
+            enable: enable || false,
+            rulesList: rulesList || [],
+            devLogin: devLogin || false,
+            qaLogin: qaLogin || false,
           });
         }
       );

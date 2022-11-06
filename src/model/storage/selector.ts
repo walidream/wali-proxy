@@ -5,14 +5,12 @@ export const getRulesList = (state: RootState) => state.storage.rulesList || [];
 export const getFormRule = (state: RootState) => state.storage.formRule;
 
 export const getChecked = (state: RootState) => state.storage.enable;
-export const getLogin = (state: RootState) => state.storage.login;
+export const getDevLogin = (state: RootState) => state.storage.devLogin;
+export const getQaLogin = (state: RootState) => state.storage.qaLogin;
 
-export const getSelectRules = createSelector(
-  [getRulesList],
-  ( rulesList ) => {
-    if(rulesList){
-      return rulesList.filter(item => item.checked ).map(item => item.key)
-    }
-    return []
-  }  
-)
+export const getSelectRules = createSelector([getRulesList], (rulesList) => {
+  if (rulesList) {
+    return rulesList.filter((item) => item.checked).map((item) => item.key);
+  }
+  return [];
+});

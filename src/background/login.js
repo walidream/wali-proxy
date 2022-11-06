@@ -34,3 +34,19 @@ export const removeAll = () => {
     removeCookie({ name });
   });
 };
+
+export const setDomainCookies = (domain) => {
+  //获取域名的domain
+  chrome.cookies.getAll(
+    {
+      domain,
+    },
+    (details) => {
+      console.log("设置所在域名下的cookie: ", domain);
+      const cookies = details.filter((item) => SET_COOKIES.includes(item.name));
+      cookies.forEach((cookie) => {
+        setLocalhostCookie(cookie);
+      });
+    }
+  );
+};

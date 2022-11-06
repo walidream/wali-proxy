@@ -1,14 +1,17 @@
 /* global chrome */
-import { setLocalhostCookie, removeAll } from "./login";
+import { setLocalhostCookie, removeAll, setDomainCookies } from "./login";
 import {
   YAPI_PROXY_RULES,
   YAPI_PROXY_ENABLE,
-  YAPI_PROXY_LOGIN,
+  YAPI_PROXY_DEV_LOGIN,
+  YAPI_PROXY_QA_LOGIN,
+  DEV_HOST,
   QA_HOST,
   SET_COOKIES,
 } from "@/constants";
 
-var login = false;
+var devLogin = false;
+var qaLogin = false;
 var enable = false;
 var rules = [];
 
@@ -77,9 +80,15 @@ function toggleWebRequest(flag) {
 
 /** init **/
 chrome.storage.local.get(
-  [YAPI_PROXY_RULES, YAPI_PROXY_ENABLE, YAPI_PROXY_LOGIN],
+  [
+    YAPI_PROXY_RULES,
+    YAPI_PROXY_ENABLE,
+    YAPI_PROXY_DEV_LOGIN,
+    YAPI_PROXY_QA_LOGIN,
+  ],
   (data) => {
-    login = data[YAPI_PROXY_LOGIN] || false;
+    devLogin = data[YAPI_PROXY_DEV_LOGIN] || false;
+    qaLogin = data[YAPI_PROXY_QA_LOGIN] || false;
     enable = data[YAPI_PROXY_ENABLE] || false;
     rules = filterRules(data[YAPI_PROXY_RULES]) || [];
 
@@ -100,19 +109,43 @@ chrome.storage.onChanged.addListener((changes) => {
     enable = changes[YAPI_PROXY_ENABLE]["newValue"];
     toggleWebRequest(enable);
   }
-  if (changes[YAPI_PROXY_LOGIN]) {
-    login = changes[YAPI_PROXY_LOGIN]["newValue"];
-    if (!login) {
+
+  //监听用户DEV登录
+  if (changes[YAPI_PROXY_DEV_LOGIN] && qaLogin === false) {
+    devLogin = changes[YAPI_PROXY_DEV_LOGIN]["newValue"];
+    if (!devLogin) {
       removeAll();
+    } else {
+      console.log("设置dev cookie");
+      setDomainCookies(DEV_HOST);
+    }
+  }
+
+  //监听用户QA登录
+  if (changes[YAPI_PROXY_QA_LOGIN] && devLogin === false) {
+    qaLogin = changes[YAPI_PROXY_QA_LOGIN]["newValue"];
+    if (!qaLogin) {
+      removeAll();
+    } else {
+      console.log("设置qa cookie");
+      setDomainCookies(QA_HOST);
     }
   }
 });
 
 //监听cookies
 chrome.cookies.onChanged.addListener((changeInfo) => {
-  if (login) {
+  if (devLogin && qaLogin === false) {
+    const cookie = changeInfo.cookie;
+    if (cookie.domain.includes(DEV_HOST) && SET_COOKIES.includes(cookie.name)) {
+      console.log("监听dev cookie 变动: ", cookie);
+      setLocalhostCookie(cookie);
+    }
+  }
+  if (qaLogin && devLogin === false) {
     const cookie = changeInfo.cookie;
     if (cookie.domain.includes(QA_HOST) && SET_COOKIES.includes(cookie.name)) {
+      console.log("监听qa cookie 变动: ", cookie);
       setLocalhostCookie(cookie);
     }
   }

@@ -1,31 +1,31 @@
-import React,{useEffect} from "react"
-import { useSelector,useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { Switch } from "antd"
+import { Switch } from "antd";
 
-import { getChecked } from "@/model/storage/selector"
+import { getChecked } from "@/model/storage/selector";
 
 const MockApiView = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch.storage.getYapiRules()
+    dispatch.storage.getYapiRules();
+  }, []);
 
-  }, [dispatch])
+  const checked = useSelector(getChecked);
 
-  const checked = useSelector(getChecked)
-
-  const _onSwitch = (checked:boolean) => {
-    dispatch.storage.switchEnable(checked)
-  }
+  const _onSwitch = (checked: boolean) => {
+    dispatch.storage.switchEnable(checked);
+  };
 
   return (
-    <Switch 
-    checked={checked}
-    checkedChildren="Close API"
-    unCheckedChildren="Mock API" 
-    onChange={_onSwitch}/>
-  )
-}
+    <Switch
+      checked={checked}
+      checkedChildren="Close API"
+      unCheckedChildren="Mock API"
+      onChange={_onSwitch}
+    />
+  );
+};
 
-export default MockApiView
+export default MockApiView;

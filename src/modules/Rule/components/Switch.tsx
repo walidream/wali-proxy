@@ -10,7 +10,7 @@ const MockApiView = () => {
 
   useEffect(() => {
     dispatch.storage.getYapiRules();
-  }, []);
+  }, [dispatch.storage]);
 
   const checked = useSelector(getChecked);
 

@@ -1,12 +1,13 @@
 {
   "name": "us proxy",
-  "version":"2.0",
+  "version":"2.1",
   "description": "us proxy",
   "manifest_version": 3,
   "action": {
     "default_icon": {
         "16": "images/16.png",
         "48": "images/48.png",
+        "64": "images/64.png",
         "128": "images/128.png"
     },
     "default_title": "us proxy",

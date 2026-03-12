@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Fetch Interceptor",
+  "name": "wali proxy",
   "version": "1.0.0",
   "description": "Intercept HTTP requests and return custom response data for local debugging",
   "permissions": ["storage", "tabs"],

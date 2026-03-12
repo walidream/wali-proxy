@@ -66,7 +66,7 @@
     return waitForRules().then(() => {
       const matchedRule = findMatchingRule(url);
       if (matchedRule) {
-        console.log('%c[Fetch Interceptor]%c Intercepted: %s', 'color:#4CAF50;font-weight:bold', 'color:inherit', url);
+        console.log('%c[wali proxy]%c Intercepted: %s', 'color:#4CAF50;font-weight:bold', 'color:inherit', url);
         return new Response(matchedRule.body, {
           status: 200,
           statusText: 'OK',
@@ -87,7 +87,7 @@
   };
 
   function fakeXhrResponse(xhr, url, matchedRule) {
-    console.log('%c[Fetch Interceptor]%c Intercepted XHR: %s', 'color:#4CAF50;font-weight:bold', 'color:inherit', url);
+    console.log('%c[wali proxy]%c Intercepted XHR: %s', 'color:#4CAF50;font-weight:bold', 'color:inherit', url);
     Object.defineProperty(xhr, 'readyState', { get: () => 4, configurable: true });
     Object.defineProperty(xhr, 'status', { get: () => 200, configurable: true });
     Object.defineProperty(xhr, 'statusText', { get: () => 'OK', configurable: true });
